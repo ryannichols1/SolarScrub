@@ -1,18 +1,30 @@
-# SunScrub — Solar Panel Cleaning Dublin
+# SolarScrub
 
-Full-stack landing page with Stripe payments, deployed on Netlify.
+Booking site for a solar-panel cleaning service in Dublin. A customer prices their job with an instant calculator (€39 callout + €7 per panel), books and pays through Stripe Checkout, and can leave a review. A contact form emails enquiries to the owner.
+
+Static front end (`public/index.html`) plus four Netlify Functions. No separate backend or database to run.
+
+| Feature | How it's built |
+|---|---|
+| Instant price calculator | Vanilla JS in `public/index.html` |
+| Booking and payment | `create-checkout` creates a Stripe customer and Checkout Session; `stripe-webhook` confirms payment |
+| Customer reviews | `reviews` stores them in Netlify Blobs |
+| Contact form | `contact` sends the message by email via Resend |
+
+**Stack:** HTML/CSS/JS, Netlify Functions (Node), Stripe, Netlify Blobs, Resend.
 
 ## Project Structure
 
 ```
-sunscrub-netlify/
+sunscrub/
 ├── public/
 │   └── index.html                        # Landing page
 ├── netlify/
 │   └── functions/
 │       ├── create-checkout.js            # Stripe Checkout session
 │       ├── stripe-webhook.js             # Payment confirmation
-│       └── reviews.js                    # Submit & retrieve reviews
+│       ├── reviews.js                    # Submit & retrieve reviews
+│       └── contact.js                    # Contact form → email via Resend
 ├── netlify.toml                          # Netlify config
 ├── package.json
 ├── .env.example
@@ -20,12 +32,12 @@ sunscrub-netlify/
 └── README.md
 ```
 
-## Setup
+## Deploy your own
 
 ### 1. Push to GitHub
 
 ```bash
-cd sunscrub-netlify
+cd sunscrub
 git init
 git add .
 git commit -m "Initial commit"
@@ -52,6 +64,7 @@ In Netlify: **Site configuration** → **Environment variables** → Add:
 |------------------------|-------------------------------|
 | `STRIPE_SECRET_KEY`    | `sk_test_...` or `sk_live_...` |
 | `STRIPE_WEBHOOK_SECRET`| `whsec_...`                    |
+| `RESEND_API_KEY`       | From [resend.com](https://resend.com) (contact form) |
 
 Get these from [dashboard.stripe.com](https://dashboard.stripe.com):
 - **API Keys**: Developers → API Keys
