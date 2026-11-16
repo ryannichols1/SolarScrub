@@ -1,5 +1,7 @@
 # SolarScrub
 
+**Live:** [solarscrub.ie](https://solarscrub.ie)
+
 Booking site for a solar-panel cleaning service in Dublin. A customer prices their job with an instant calculator (€39 callout + €7 per panel), books and pays through Stripe Checkout, and can leave a review. A contact form emails enquiries to the owner.
 
 Static front end (`public/index.html`) plus four Netlify Functions. No separate backend or database to run.
